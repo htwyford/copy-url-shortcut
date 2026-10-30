@@ -1,5 +1,5 @@
 {
-  "slug": "copy-url-shortcut",
+  "slug": "copy-link-shortcut",
   "summary": {
     "en-US": "Press Shift-Cmd-C to copy the current page's link, with tracking parameters removed. Ctrl-Shift-C copies it as a Markdown link."
   },
