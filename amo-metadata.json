@@ -1,0 +1,25 @@
+{
+  "slug": "copy-url-shortcut",
+  "summary": {
+    "en-US": "Press Shift-Cmd-C to copy the current page's link, with tracking parameters removed. Ctrl-Shift-C copies it as a Markdown link."
+  },
+  "description": {
+    "en-US": "Press Shift-Cmd-C to copy the current page's link, with tracking parameters removed. Ctrl-Shift-C copies it as a Markdown link. On Windows and Linux, the shortcuts are Ctrl-Shift-C and Alt-Shift-C.\n\nShift-Cmd-C is also Firefox's shortcut for picking an element in the developer tools. This extension replaces it. You can change either shortcut on Firefox's Manage Extension Shortcuts page.\n\nSource: https://github.com/htwyford/copy-url-shortcut"
+  },
+  "categories": {
+    "firefox": [
+      "privacy-security"
+    ]
+  },
+  "homepage": {
+    "en-US": "https://github.com/htwyford/copy-url-shortcut"
+  },
+  "requires_payment": false,
+  "version": {
+    "license": "GPL-3.0-only",
+    "release_notes": {
+      "en-US": "First release on addons.mozilla.org."
+    },
+    "approval_notes": "Keyboard commands copy the active tab's URL (activeTab is granted when the shortcut is pressed). Known tracking query parameters are stripped locally (clean.js), the result is written with clipboardWrite, and a toast is shown with scripting.executeScript, falling back to notifications on pages that can't be scripted. storage holds one setting. No network requests, no remote code, no data collection. The source is unminified and identical to https://github.com/htwyford/copy-url-shortcut."
+  }
+}

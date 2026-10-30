@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Copy URL Shortcut",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Arc-style Shift-Cmd-C: copy the current tab's URL from anywhere, with tracking parameters removed and a small confirmation toast. Ctrl-Shift-C copies it as a Markdown link.",
   "author": "Harry Twyford",
   "homepage_url": "https://github.com/htwyford/copy-url-shortcut",
   "icons": {
-    "48": "icons/icon.svg",
-    "96": "icons/icon.svg"
+    "48": "icons/icon-48.png",
+    "96": "icons/icon-96.png",
+    "128": "icons/icon-128.png"
   },
   "permissions": [
     "activeTab",
