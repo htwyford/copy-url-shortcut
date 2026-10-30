@@ -1,9 +1,13 @@
 "use strict";
 
-function markdownLink(tab) {
-  const title = (tab.title || tab.url).replace(/([\\[\]])/g, "\\$1");
-  const url = tab.url.replace(/\)/g, "%29").replace(/ /g, "%20");
-  return `[${title}](${url})`;
+async function cleanLinksEnabled() {
+  const { cleanLinks = true } = await browser.storage.local.get("cleanLinks");
+  return cleanLinks;
+}
+
+function markdownLink(title, url) {
+  const text = (title || url).replace(/([\\[\]])/g, "\\$1");
+  return `[${text}](${url.replace(/\)/g, "%29").replace(/ /g, "%20")})`;
 }
 
 // Injected into the page: a toast that fades out on its own. Kept in a closed
@@ -37,7 +41,7 @@ function showToast(message) {
   setTimeout(() => host.remove(), 1800);
 }
 
-async function confirm(tab, message) {
+async function confirm(tab, message, copied) {
   try {
     await browser.scripting.executeScript({
       target: { tabId: tab.id },
@@ -50,19 +54,22 @@ async function confirm(tab, message) {
     browser.notifications.create("copied", {
       type: "basic",
       title: message,
-      message: tab.url,
+      message: copied,
     });
   }
 }
 
 browser.commands.onCommand.addListener(async (command, tab) => {
   if (!tab?.url) return;
+  const clean = await cleanLinksEnabled();
+  const url = clean ? cleanUrl(tab.url) : tab.url;
   if (command === "copy-url") {
-    await navigator.clipboard.writeText(tab.url);
-    await confirm(tab, "Copied URL");
+    await navigator.clipboard.writeText(url);
+    await confirm(tab, clean ? "Copied a clean link without trackers" : "Copied URL", url);
   }
   if (command === "copy-markdown") {
-    await navigator.clipboard.writeText(markdownLink(tab));
-    await confirm(tab, "Copied Markdown link");
+    const md = markdownLink(tab.title, url);
+    await navigator.clipboard.writeText(md);
+    await confirm(tab, clean ? "Copied a clean Markdown link without trackers" : "Copied Markdown link", md);
   }
 });
